@@ -16,6 +16,7 @@ This comprehensive server uses the Model Context Protocol (MCP) and the `fastmcp
 - **Append to Documents:** Add text to documents with `appendToGoogleDoc`
 - **Insert Text:** Place text at specific positions with `insertText`
 - **Delete Content:** Remove content from a document with `deleteRange`
+- **Tab Support:** Work with multi-tab documents using `listDocumentTabs` and optional `tabId` parameter in read/write operations
 
 ### Formatting & Styling
 - **Text Formatting:** Apply rich styling with `applyTextStyle` (bold, italic, colors, etc.)
@@ -211,6 +212,31 @@ Once configured, you should be able to use the tools in your chats with Claude:
 - "Use the `google-docs-mcp` server to read the document with ID `YOUR_GOOGLE_DOC_ID`."
 - "Can you get the content of Google Doc `YOUR_GOOGLE_DOC_ID`?"
 - "Append 'This was added by Claude!' to document `YOUR_GOOGLE_DOC_ID` using the `google-docs-mcp` tool."
+
+### Working with Tabs
+
+Google Docs now supports multi-tab documents. This MCP server provides full support for working with tabs:
+
+**Listing Tabs:**
+- "List all tabs in document `YOUR_GOOGLE_DOC_ID` using the `listDocumentTabs` tool."
+- "Show me the tab structure with content summary for document `YOUR_GOOGLE_DOC_ID`."
+
+**Reading from Specific Tabs:**
+- "Read the content from tab `TAB_ID` in document `YOUR_GOOGLE_DOC_ID` using the `readGoogleDoc` tool."
+- "Get the markdown content from tab `TAB_ID` in document `YOUR_GOOGLE_DOC_ID`."
+
+**Writing to Specific Tabs:**
+- "Append 'New content' to tab `TAB_ID` in document `YOUR_GOOGLE_DOC_ID`."
+- "Insert text at index 100 in tab `TAB_ID` of document `YOUR_GOOGLE_DOC_ID`."
+- "Delete content from range 50-100 in tab `TAB_ID` of document `YOUR_GOOGLE_DOC_ID`."
+
+**Note:** The following tools support the optional `tabId` parameter:
+- `readGoogleDoc` - Read from a specific tab
+- `appendToGoogleDoc` - Append to a specific tab
+- `insertText` - Insert text into a specific tab
+- `deleteRange` - Delete content from a specific tab
+
+When `tabId` is not specified, operations target the first tab (or the legacy document body for older documents without tabs).
 
 ### Advanced Usage Examples:
 - **Text Styling**: "Use `applyTextStyle` to make the text 'Important Section' bold and red (#FF0000) in document `YOUR_GOOGLE_DOC_ID`."
